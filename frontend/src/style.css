@@ -1,0 +1,307 @@
+@import "tailwindcss";
+
+/* CSS Custom Properties (Theme Tokens) */
+:root {
+  color-scheme: dark;
+  --color-dark-bg: #0a0b10;
+  --color-dark-card: rgba(255, 255, 255, 0.03);
+  --color-dark-border: rgba(255, 255, 255, 0.08);
+  --color-primary: #6366f1;
+  --color-primary-glow: #4f46e5;
+  --color-secondary: #ec4899;
+}
+
+/* Tailwind v4 theme overrides */
+@theme {
+  --color-dark-bg: #0a0b10;
+  --color-dark-card: rgba(255, 255, 255, 0.03);
+  --color-dark-border: rgba(255, 255, 255, 0.08);
+  --color-primary: #6366f1;
+  --color-primary-glow: #4f46e5;
+  --color-secondary: #ec4899;
+  --color-secondary-glow: #db2777;
+  --font-family-sans: 'Outfit', 'Inter', sans-serif;
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --shadow-neon: 0 0 15px rgba(99, 102, 241, 0.5);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0b10;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f2230;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #31354a;
+}
+
+body {
+  background-color: #0a0b10;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  color: #f3f4f6;
+  overflow-x: hidden;
+}
+
+/* For Tailwind v4 - ensure bg-dark-bg works */
+.bg-dark-bg {
+  background-color: #0a0b10 !important;
+}
+
+/* Clean Panel Card (Stripe/Linear style) */
+.minimal-card {
+  background-color: #11131c;
+  border: 1px solid #1f2230;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.minimal-card:hover {
+  border-color: #31354a;
+  transform: translateY(-2px);
+}
+
+/* Flat Buttons (Solid Colors) */
+.btn-solid-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #6366f1;
+  color: #ffffff;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+.btn-solid-primary:hover {
+  background-color: #4f46e5;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+}
+.btn-solid-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-solid-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1f2230;
+  color: #e5e7eb;
+  border: 1px solid #31354a;
+  font-weight: 500;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-solid-secondary:hover {
+  background-color: #2a2e41;
+  border-color: #444964;
+}
+
+.btn-solid-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ef4444;
+  color: #ffffff;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-solid-danger:hover {
+  background-color: #dc2626;
+}
+
+/* Inputs */
+.input-minimal {
+  background-color: #151722;
+  border: 1px solid #232737;
+  border-radius: 6px;
+  color: #ffffff;
+  width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.input-minimal::placeholder {
+  color: #4b5563;
+}
+.input-minimal:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  outline: none;
+}
+
+/* Badges */
+.badge-solid {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+.badge-cyan {
+  background-color: rgba(6, 182, 212, 0.12);
+  color: #06b6d4;
+  border: 1px solid rgba(6, 182, 212, 0.2);
+}
+.badge-pink {
+  background-color: rgba(236, 72, 153, 0.12);
+  color: #ec4899;
+  border: 1px solid rgba(236, 72, 153, 0.2);
+}
+.badge-green {
+  background-color: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+.badge-gray {
+  background-color: rgba(156, 163, 175, 0.12);
+  color: #9ca3af;
+  border: 1px solid rgba(156, 163, 175, 0.2);
+}
+.badge-amber {
+  background-color: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* Layout Utilities */
+.premium-gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Confetti particles (used by quiz completion animation) */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform, opacity;
+}
+
+/* Smooth page transitions */
+#main-content {
+  animation: fadeSlideIn 0.35s ease forwards;
+}
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Quiz option hover states */
+.quiz-option-btn {
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+.quiz-option-btn:hover {
+  border-color: rgba(99, 102, 241, 0.5) !important;
+  background-color: rgba(99, 102, 241, 0.08) !important;
+  color: #ffffff !important;
+}
+.quiz-option-btn.correct {
+  border-color: rgba(16, 185, 129, 0.6) !important;
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  color: #10b981 !important;
+}
+.quiz-option-btn.wrong {
+  border-color: rgba(239, 68, 68, 0.6) !important;
+  background-color: rgba(239, 68, 68, 0.1) !important;
+  color: #ef4444 !important;
+}
+
+/* Progress bar animation */
+@keyframes progressFill {
+  from { width: 0%; }
+}
+.progress-bar-animated {
+  animation: progressFill 0.8s ease forwards;
+}
+
+/* Card hover lift effect */
+.course-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(99, 102, 241, 0.2);
+}
+
+/* Responsive table scrolling */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #1f2230 25%, #2a2e41 50%, #1f2230 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  min-width: 280px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: slideInToast 0.3s ease;
+}
+@keyframes slideInToast {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating animation for hero elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Pulse glow animation */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; box-shadow: 0 0 8px rgba(99, 102, 241, 0.3); }
+  50% { opacity: 1; box-shadow: 0 0 16px rgba(99, 102, 241, 0.6); }
+}
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
