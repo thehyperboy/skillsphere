@@ -1,6 +1,6 @@
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
 
-const useMock = true; // Set to false when backend is running
+const useMock = false; // Backend is live on :8080
 
 const initialMockData = {
   courses: [
@@ -438,7 +438,7 @@ export const api = {
     if (useMock) {
       return await this.loginOAuth('google');
     }
-    const clientId = '927599026365-c7hgg6b00vldtq022k57c2k81tmdvein.apps.googleusercontent.com';
+    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     const redirectUri = window.location.origin + '/';
     const scope = 'openid email profile';
     const googleUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${encodeURIComponent(scope)}&state=google`;
@@ -450,7 +450,7 @@ export const api = {
     if (useMock) {
       return await this.loginOAuth('github');
     }
-    const clientId = 'Ov23liP6n57fTqZ9K2E4';
+    const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
     const redirectUri = window.location.origin + '/';
     const githubUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=user:email&state=github`;
     window.location.href = githubUrl;
