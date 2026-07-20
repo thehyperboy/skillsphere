@@ -434,26 +434,23 @@ export const api = {
     return data;
   },
 
-  async redirectToGoogle() {
-    if (useMock) {
-      return await this.loginOAuth('google');
-    }
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    const redirectUri = window.location.origin + '/';
-    const scope = 'openid email profile';
-    const googleUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${encodeURIComponent(scope)}&state=google`;
-    window.location.href = googleUrl;
-    return null;
-  },
-
-  async redirectToGithub() {
-    if (useMock) {
-      return await this.loginOAuth('github');
-    }
-    const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
-    const redirectUri = window.location.origin + '/';
-    const githubUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=user:email&state=github`;
-    window.location.href = githubUrl;
-    return null;
+async redirectToGoogle() {
+  if (useMock) {
+    return await this.loginOAuth('google');
   }
+
+  // Redirect to Spring Boot OAuth endpoint
+  window.location.href = "http://localhost:8080/oauth2/authorization/google";
+  return null;
+},
+
+async redirectToGithub() {
+  if (useMock) {
+    return await this.loginOAuth('github');
+  }
+
+  // Redirect to Spring Boot OAuth endpoint
+  window.location.href = "http://localhost:8080/oauth2/authorization/github";
+  return null;
+},
 };
