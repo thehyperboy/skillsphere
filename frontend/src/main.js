@@ -60,7 +60,10 @@ async function router() {
       try {
         const user = await api.loginWithGoogleToken(googleToken);
         state.user = user;
-        navigate('#student-dashboard');
+        const role = user.role || '';
+        if (role === 'ROLE_ADMIN') navigate('#admin-dashboard');
+        else if (role === 'ROLE_TRAINER') navigate('#trainer-dashboard');
+        else navigate('#student-dashboard');
         return;
       } catch (err) {
         console.error('Google OAuth failed:', err);
@@ -74,7 +77,10 @@ async function router() {
     try {
       const user = await api.loginWithGithubCode(code);
       state.user = user;
-      navigate('#student-dashboard');
+      const role = user.role || '';
+      if (role === 'ROLE_ADMIN') navigate('#admin-dashboard');
+      else if (role === 'ROLE_TRAINER') navigate('#trainer-dashboard');
+      else navigate('#student-dashboard');
       return;
     } catch (err) {
       console.error('GitHub OAuth failed:', err);
