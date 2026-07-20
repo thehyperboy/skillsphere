@@ -44,12 +44,45 @@ async function router() {
   const appContainer = document.getElementById('app');
   const baseRoute = hash.split('/')[0];
 
-  // Handle OAuth Callbacks
+  // ─── Handle Spring Boot OAuth2 callback: ?token=JWT&role=...&name=...&email=...&id= ───
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get('code');
   const stateParam = urlParams.get('state');
+  const oauthToken = urlParams.get('token');
+  const oauthRole  = urlParams.get('role');
+  const oauthName  = urlParams.get('name');
+  const oauthEmail = urlParams.get('email');
+  const oauthId    = urlParams.get('id');
+  const oauthError = urlParams.get('error');
 
-  // Handle Google Hash Parameters (Implicit Flow callback)
+  if (oauthError) {
+    // Clean URL and show login page with error
+    window.history.replaceState({}, document.title, window.location.pathname);
+    navigate('#login');
+    return;
+  }
+
+  if (oauthToken && oauthRole) {
+    // Clean the URL so the token doesn't stay in the address bar
+    window.history.replaceState({}, document.title, window.location.pathname);
+    // Store JWT and user info exactly like a normal login
+    const user = {
+      id: oauthId ? parseInt(oauthId) : null,
+      token: oauthToken,
+      email: oauthEmail || '',
+      name: oauthName || 'User',
+      role: oauthRole
+    };
+    localStorage.setItem('skillsphere_auth', JSON.stringify(user));
+    state.user = user;
+    // Navigate to the role-based dashboard
+    if (oauthRole === 'ROLE_ADMIN') navigate('#admin-dashboard');
+    else if (oauthRole === 'ROLE_TRAINER') navigate('#trainer-dashboard');
+    else navigate('#student-dashboard');
+    return;
+  }
+
+  // ─── Legacy: Google Implicit Flow callback (hash-based) ───
   let googleToken = null;
   if (window.location.hash && window.location.hash.includes('access_token=')) {
     const hashParams = new URLSearchParams(window.location.hash.substring(1));
@@ -71,7 +104,7 @@ async function router() {
     }
   }
 
-  // Handle GitHub Query Parameters (Auth Code flow callback)
+  // ─── Legacy: GitHub Auth Code Flow callback (query-based) ───
   if (code && stateParam === 'github') {
     window.history.replaceState({}, document.title, window.location.pathname);
     try {
